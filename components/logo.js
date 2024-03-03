@@ -1,6 +1,15 @@
-import React from 'react'
+import React,{ useEffect } from 'react'
 import { StyleSheet, Text, View,Image } from 'react-native';
-const logo = () => {
+import { useNavigation } from '@react-navigation/native';
+
+const Logo = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate('Login');
+    }, 2000);
+    return () => clearTimeout(timer); 
+  }, []);
   return (
     <View style={styles.container}>
       <Image
@@ -18,4 +27,4 @@ const styles = StyleSheet.create({
   });
   
 
-export default logo
+export default Logo
