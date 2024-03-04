@@ -11,6 +11,10 @@ const Login = () => {
     handleLoginEmail=()=>{
       navigation.navigate('emailLogin')
     }
+    const handleSignup = () => {
+      navigation.navigate('SignupScreen'); 
+    };
+  
   return (
     <>
       <View style={styles.container}>
@@ -29,7 +33,10 @@ const Login = () => {
         </View>
         <View style={styles.createAccount}>
           <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Don't have an account?</Text>
+          
+          <TouchableOpacity onPress={handleSignup}>
           <Text style={{ color: "#0085FF", fontSize: 15, fontWeight: 'bold' }}> Create New Account</Text>
+        </TouchableOpacity>
         </View>
       </View>
     </>
