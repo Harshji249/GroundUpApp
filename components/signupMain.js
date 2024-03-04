@@ -41,7 +41,7 @@ const Signup = () => {
       <View style={styles.createAccount}>
         <Text style={{ fontSize: 15, fontWeight: 'bold'}}>Already have an account?</Text>
         <TouchableOpacity onPress={handleLogin}>
-          <Text style={{ color: "#0085FF", fontSize: 16, fontWeight: 'bold' }}> Login</Text>
+          <Text style={{ color: "#0085FF", fontSize: 15, fontWeight: 'bold' }}> Login</Text>
         </TouchableOpacity>
       </View>
     </View>
