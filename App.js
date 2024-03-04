@@ -45,6 +45,7 @@ export default function App() {
           <Stack.Screen
             name="SignupEmail"
             component={SignupEmail}
+            options={{ headerShown: false }}
           />
 
           <Stack.Screen
@@ -55,7 +56,7 @@ export default function App() {
           <Stack.Screen
             name="SignupNumber"
             component={SignupNumber}
-            
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>
