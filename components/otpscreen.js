@@ -21,6 +21,11 @@ const OtpScreen = () => {
     }
     setOtpDigits(newOtpDigits);
   };
+  const handleSubmit=()=>{
+    if(otpDigits.map(String).join('') === '1111'){
+    navigation.navigate('home') 
+    }
+  }
 
   const otpValue = otpDigits.join('');
 
@@ -39,12 +44,11 @@ const OtpScreen = () => {
         <View style={styles.inputContainer}>
   <OTPTextInput handleCellTextChange={handleOTPInput} />
   <Text style={{color:'#0085FF', fontWeight:'bold',marginTop:10, marginLeft:60}}>Request OTP again</Text>
-  <Text>{otpValue}</Text>
 </View>
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity  style={styles.sendOTPButton}>
-            <Text style={{ fontSize: 18, color: 'black', fontWeight:'bold' }}>Login</Text>
+            <Text onPress={handleSubmit} style={{ fontSize: 18, color: 'black', fontWeight:'bold' }}>Login</Text>
           </TouchableOpacity>
         </View>
 

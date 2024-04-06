@@ -10,6 +10,7 @@ import EmailLogin from './components/emailLogin';
 import Signup from './components/signupMain';
 import SignupEmail from './components/signupEmail';
 import SignupNumber from './components/signupNumber';
+import Home from './components/home';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -45,6 +46,7 @@ export default function App() {
           <Stack.Screen
             name="SignupEmail"
             component={SignupEmail}
+            options={{ headerShown: false }}
           />
 
           <Stack.Screen
@@ -55,7 +57,12 @@ export default function App() {
           <Stack.Screen
             name="SignupNumber"
             component={SignupNumber}
-            
+            options={{ headerShown: false }}            
+          />
+           <Stack.Screen
+            name="home"
+            component={Home}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>
