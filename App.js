@@ -10,13 +10,15 @@ import EmailLogin from './components/emailLogin';
 import Signup from './components/signupMain';
 import SignupEmail from './components/signupEmail';
 import SignupNumber from './components/signupNumber';
-import Home from './components/home';
+
+import { BottomNavbar } from './navigation/BottomNavbar';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <>
       <NavigationContainer>
+     
         <Stack.Navigator>
           <Stack.Screen
             name="Logo"
@@ -59,11 +61,13 @@ export default function App() {
             component={SignupNumber}
             options={{ headerShown: false }}            
           />
-           <Stack.Screen
-            name="home"
-            component={Home}
+           
+          <Stack.Screen
+            name="BottomNavbar"
+            component={BottomNavbar}
             options={{ headerShown: false }}
           />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </>
