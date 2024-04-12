@@ -23,7 +23,7 @@ const OtpScreen = () => {
   };
   const handleSubmit=()=>{
     if(otpDigits.map(String).join('') === '1111'){
-    navigation.navigate('home') 
+    navigation.navigate('BottomNavbar') 
     }
   }
 
