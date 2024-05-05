@@ -1,14 +1,45 @@
-import React from "react";
+import React, {useState}from "react";
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
-
+import axios from "axios";
+import { RecaptchaVerifier } from "firebase/auth";
+import auth from "../config/firebase-config";
 const PhoneLogin = () => {
   const navigation = useNavigation();
+  const [phone, setPhone] = useState('');
 
-  const handleSendOTP = () => {
-    navigation.navigate('otpScreen') 
-  }
+  const configureCaptcha = () => {
+    console.log('inside', auth);
+    const recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
+      'size': 'invisible',
+    }, auth);
+    console.log(recaptchaVerifier,'recaptchaVerifier')
+    return recaptchaVerifier
+  };
+  
+  const handleMobileNumberChange = (text) => {
+    // Remove non-numeric characters
+    const formattedText = text.replace(/[^\d]/g, '');
+    setPhone(formattedText);
+  };
+  
+  const handleSendOTP = async () => {
+    const phoneNumber = '+91' + phone;
+    const appVerifier = configureCaptcha();
+    console.log('app',appVerifier)
+    try {
+      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+      console.log(confirmationResult, 'confirmationResult');
+      window.confirmationResult = confirmationResult;
+    } catch (error) {
+      // Error; SMS not sent
+      console.error(error);
+    }
+  };
+  
 
   return (
     <>
@@ -34,12 +65,15 @@ const PhoneLogin = () => {
             placeholder="Enter your mobile number"
             keyboardType="numeric"
             maxLength={10}
+            value={phone}
+        onChangeText={handleMobileNumberChange}
           />
         </View>
 
         <View style={styles.buttonContainer}>
+        <View id="sign-in-button"></View>
           <TouchableOpacity onPress={handleSendOTP} style={styles.sendOTPButton}>
-            <Text style={{ fontSize: 18, color: 'white' }}>Send OTP</Text>
+            <Text onPress={handleSendOTP} style={{ fontSize: 18, color: 'white' }}>Send OTP</Text>
           </TouchableOpacity>
         </View>
 

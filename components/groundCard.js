@@ -1,0 +1,190 @@
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+const GroundCard = () => {
+  return (
+   <>
+     <View
+            style={[
+              styles.box,
+              {
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+                width: "98%",
+                height: 150,
+                backgroundColor: "white",
+                borderWidth: 2,
+                borderColor: "#DFDFDF",
+                borderRadius: 10,
+                flexDirection: "row",
+              },
+            ]}
+          >
+            <View>
+              <Image
+                source={require("../images/images/bg3.png")}
+                style={{ height: "95%", width: 190, borderRadius: 10 }}
+              ></Image>
+            </View>
+            <View
+              style={[
+                styles.textContainer,
+                { flexDirection: "column", marginTop: 0 },
+              ]}
+            >
+              <Text style={[styles.headText, { color: "black" }]}>
+                Cricket Stadium
+              </Text>
+              <TouchableOpacity
+                style={[styles.button, { width: 170, marginTop: 10 }]}
+              >
+                <Text style={[styles.buttonText, { marginLeft: 55 }]}>
+                  Book Now
+                </Text>
+              </TouchableOpacity>
+              <View
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  marginTop: 10,
+                }}
+              >
+                <View style={{ marginLeft: 10, marginRight: 10 }}>
+                  <Text style={{ fontWeight: "bold" }}>Rs3000</Text>
+                  <Text
+                    style={{ color: "blue", fontSize: 10, textAlign: "center" }}
+                  >
+                    3:00 PM
+                  </Text>
+                </View>
+                <View style={{ marginLeft: 10, marginRight: 10 }}>
+                  <Text style={{ fontWeight: "bold" }}>Rs3000</Text>
+                  <Text
+                    style={{ color: "blue", fontSize: 10, textAlign: "center" }}
+                  >
+                    3:00 PM
+                  </Text>
+                </View>
+                <View style={{ marginLeft: 10, marginRight: 10 }}>
+                  <Text style={{ fontWeight: "bold" }}>Rs3000</Text>
+                  <Text
+                    style={{ color: "blue", fontSize: 10, textAlign: "center" }}
+                  >
+                    3:00 PM
+                  </Text>
+                </View>
+              </View>
+              {/* <Text style={{ marginTop: 15 }}>3:00PM | 6:00PM | 9:00PM </Text> */}
+            </View>
+          </View>
+   </>
+  )
+}
+const styles = StyleSheet.create({
+    container: {
+      alignItems: "center",
+      top: 50,
+    },
+    container2: {
+      marginTop: 50,
+    },
+    container3: {
+      flex: 1,
+      marginTop: 30,
+    },
+  
+    image: {
+      width: 180,
+      height: 44,
+    },
+    inputContainer2: {
+      flexDirection: "row",
+      alignItems: "center",
+      borderWidth: 1,
+      width: 330,
+      marginTop: 10,
+      borderWidth: 2,
+      borderColor: "#DFDFDF",
+      borderRadius: 50,
+      paddingHorizontal: 10,
+      marginBottom: 20,
+    },
+    input: {
+      flex: 1,
+      height: 40,
+      marginLeft: 10,
+    },
+    scrollbar: {
+      flexDirection: "row",
+      marginTop: 10,
+    },
+    icon: {
+      marginRight: 10,
+    },
+    text: {
+      marginLeft: 10,
+      color: "#ABABAB",
+    },
+    text2: {
+      fontSize: 10,
+    },
+    headText: {
+      color: "white",
+      fontWeight: "500",
+      marginLeft: 20,
+      fontSize: 20,
+      marginRight: 25,
+      marginBottom: 0,
+    },
+    textContainer: {
+      display: "flex",
+      justifyContent: "space-around",
+      alignItems: "center",
+      flexDirection: "row",
+      marginTop: 60,
+    },
+    addressText: {
+      fontSize: 10,
+    },
+    box: {
+      height: 113,
+      width: "50%",
+      overflow: "hidden",
+      borderRadius: 10,
+      marginLeft: 5,
+      marginRight: 10,
+    },
+    background: {
+      flex: 1,
+      resizeMode: "cover",
+      justifyContent: "center",
+    },
+    sideImage: {
+      width: 120,
+      height: 50,
+    },
+    button: {
+      width: 70,
+      height: 30,
+      backgroundColor: "rgba(255, 197, 0, 1)",
+      justifyContent: "center",
+      alignContent: "center",
+      borderRadius: 5,
+    },
+    buttonText: {
+      color: "black",
+      fontSize: 12,
+      fontWeight: "bold",
+      marginLeft: 8,
+    },
+  });
+export default GroundCard

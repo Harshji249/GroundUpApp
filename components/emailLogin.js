@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 
 const EmailLogin = () => {
   const navigation = useNavigation();
-
-  const handleSendOTP = () => {
-    navigation.navigate('otpScreen') 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handlePasswordChange = (text) => {
+    setPassword(text);
+  };
+  const handleLogin = async () => {
+    await axios.post('http://localhost:4000/api/auth/loginuser', {
+      email:email,
+      password : password
+    })
+    .then(function (response) {
+      console.log(response);
+      if(response.status === 200){
+      navigation.navigate('BottomNavbar')
+      }
+    })
+    .catch(function (error) {
+      console.log('error',error);
+    });
   }
 
+  const handleEmailChange =(text)=>{
+    setEmail(text);
+  }
   return (
     <>
       <View style={styles.container}>
@@ -34,6 +53,8 @@ const EmailLogin = () => {
             placeholder="Enter your registered mail"
             keyboardType="email-address"
             maxLength={10}
+            value={email}
+            onChangeText={handleEmailChange}
           />
         </View>
         <View style={styles.inputContainer2}>
@@ -42,6 +63,8 @@ const EmailLogin = () => {
             size={24}
             color="black"
             style={styles.icon}
+            value={password}
+        onChangeText={handlePasswordChange}
           />
           <TextInput
             style={styles.input}
@@ -52,7 +75,7 @@ const EmailLogin = () => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={handleSendOTP} style={styles.sendOTPButton}>
+          <TouchableOpacity onPress={handleLogin} style={styles.sendOTPButton}>
             <Text style={{ fontSize: 18, color: 'black', fontWeight:'bold' }}>Login</Text>
           </TouchableOpacity>
         </View>

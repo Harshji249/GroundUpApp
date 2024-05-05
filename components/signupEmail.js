@@ -1,11 +1,36 @@
-import React from "react";
+import React,{useState} from "react";
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
+import axios from "axios";
 
 const EmailLogin = () => {
   const navigation = useNavigation();
+  const [userDetails, setUserDetails] = useState({
+    name:"",
+    email: "",
+    password: "",
+  });
+  const handleChange = (value, fieldName) => {
+    setUserDetails({ ...userDetails, [fieldName]: value });
+  };
+  const onSubmit= async(e)=>{
 
+    const payload = {
+      ...userDetails
+    }
+    console.log(payload)
+await axios.post('https://groundup-server.onrender.com/api/auth/signup',payload).then((res)=>{
+      console.log(res)
+    }).catch((err)=>{
+      console.log(err)
+    })
+    setUserDetails({
+      email: "",
+      password: "",
+    });
+    if(response.status === 200) navigate('/Dashboard')
+  }
   const handleSendOTP = () => {
     navigation.navigate('otpScreen') 
   }
@@ -24,7 +49,6 @@ const EmailLogin = () => {
         <View style={styles.imageContainer}>
           <Image source={require("../images/images/welcomeBack.png")} />
         </View>
-
         <View style={styles.inputContainer}>
           <MaterialIcons
             name="mail"
@@ -34,9 +58,23 @@ const EmailLogin = () => {
           />
           <TextInput
             style={styles.input}
-            placeholder="Enter your registered mail"
+            placeholder="Enter your name"
             keyboardType="email-address"
-            maxLength={10}
+            onChangeText={(value) => handleChange(value, 'name')}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <MaterialIcons
+            name="mail"
+            size={24}
+            color="black"
+            style={styles.icon}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your mail"
+            onChangeText={(value) => handleChange(value, 'email')}
+            keyboardType="email-address"
           />
         </View>
         <View style={styles.inputContainer2}>
@@ -49,13 +87,13 @@ const EmailLogin = () => {
           <TextInput
             style={styles.input}
             placeholder="Set your new password"
+            onChangeText={(value) => handleChange(value, 'password')}
             keyboardType="visible-password"
-            maxLength={10}
           />
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={handleSendOTP} style={styles.sendOTPButton}>
+          <TouchableOpacity onPress={onSubmit} style={styles.sendOTPButton}>
             <Text style={{ fontSize: 18, color: 'black', fontWeight:'bold' }}>Signup</Text>
           </TouchableOpacity>
         </View>
