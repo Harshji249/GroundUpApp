@@ -22,6 +22,7 @@ const EmailLogin = () => {
     console.log(payload)
 await axios.post('https://groundup-server.onrender.com/api/auth/signup',payload).then((res)=>{
       console.log(res)
+      if(res.status == 200) navigation('registeration')
     }).catch((err)=>{
       console.log(err)
     })

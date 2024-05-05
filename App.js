@@ -12,6 +12,7 @@ import SignupEmail from './components/signupEmail';
 import SignupNumber from './components/signupNumber';
 
 import { BottomNavbar } from './navigation/BottomNavbar';
+import userRegister from './components/userRegister';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -65,6 +66,11 @@ export default function App() {
           <Stack.Screen
             name="BottomNavbar"
             component={BottomNavbar}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="registeration"
+            component={userRegister}
             options={{ headerShown: false }}
           />
           
