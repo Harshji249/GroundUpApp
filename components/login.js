@@ -6,7 +6,7 @@ const Login = () => {
   const navigation = useNavigation();
 
     handleLoginNumber=()=>{
-        navigation.navigate('phoneLogin')
+        navigation.navigate('registeration')
     }
     handleLoginEmail=()=>{
       navigation.navigate('emailLogin')

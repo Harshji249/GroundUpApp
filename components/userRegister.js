@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios'; 
 
-const userRegister = () => {
+const UserRegister = () => {
     const navigation = useNavigation();
     const [formData, setFormData] = useState({
         name:'',
@@ -12,11 +13,18 @@ const userRegister = () => {
         state:'',
         pincode:'',
         phone:''
-});
+    });
+    const [email, setEmail] = useState(''); // Define email state variable
     const [password, setPassword] = useState('');
+    
+    const handleEmailChange = (text) => {
+      setEmail(text); // Update email state when the text input changes
+    };
+
     const handlePasswordChange = (text) => {
       setPassword(text);
     };
+
     const handleLogin = async () => {
       await axios.post('https://groundup-server.onrender.com/api/auth/registeruser', {
        formData
@@ -24,30 +32,70 @@ const userRegister = () => {
       .then(function (response) {
         console.log(response);
         if(response.status === 200){
-        navigation.navigate('BottomNavbar')
+          navigation.navigate('BottomNavbar')
         }
       })
       .catch(function (error) {
         console.log('error',error);
       });
-    }
+    };
   
-    const handleEmailChange =(text)=>{
-      setEmail(text);
-    }
     return (
       <>
         <View style={styles.container}>
           <View style={styles.logoContainer}>
             <Image source={require("../images/images/officialLogo2.png")} />
-            <Text style={{ color: "#E0AD00", fontSize: 30, fontWeight: 'bold' }}>Welcome Back</Text>
-          </View>
-  
-          <View style={styles.imageContainer}>
-            <Image source={require("../images/images/welcomeBack.png")} />
+            <Text style={{ color: "black",  fontSize: 20, fontWeight: 'semibold' }}>Register Yourself</Text>
           </View>
   
           <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Name"
+            maxLength={10}
+            onChangeText={handleEmailChange}
+          />
+           <TouchableOpacity>
+           <MaterialIcons
+              name="photo"
+              size={24}
+              color="black"
+              style={styles.icon}
+            />
+           </TouchableOpacity>
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Address"
+            maxLength={10}
+            onChangeText={handleEmailChange}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="City"
+            maxLength={15}
+            
+          />
+           <TextInput
+            style={styles.input}
+            placeholder="Pincode"
+            maxLength={10}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="State"
+            maxLength={10}
+            onChangeText={handleEmailChange}
+          />
+        </View>
+  
+          <View style={styles.inputContainer}>
+          
             <MaterialIcons
               name="mail"
               size={24}
@@ -56,7 +104,7 @@ const userRegister = () => {
             />
             <TextInput
               style={styles.input}
-              placeholder="Enter your registered mail"
+              placeholder="Enter your mail"
               keyboardType="email-address"
               maxLength={10}
               value={email}
@@ -69,14 +117,14 @@ const userRegister = () => {
               size={24}
               color="black"
               style={styles.icon}
-              value={password}
-          onChangeText={handlePasswordChange}
             />
             <TextInput
               style={styles.input}
-              placeholder="Enter your password"
+              placeholder="Set New password"
               keyboardType="visible-password"
               maxLength={10}
+              value={password}
+              onChangeText={handlePasswordChange}
             />
           </View>
   
@@ -86,10 +134,10 @@ const userRegister = () => {
             </TouchableOpacity>
           </View>
   
-          <View style={styles.createAccount}>
+          {/* <View style={styles.createAccount}>
             <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Don't have an account?</Text>
             <Text style={{ color: "#0085FF", fontSize: 15, fontWeight: 'bold' }}> Create New Account</Text>
-          </View>
+          </View> */}
         </View>
       </>
     );
@@ -103,10 +151,7 @@ const userRegister = () => {
     },
     logoContainer: {
       alignItems: "center",
-      marginBottom: 20,
-    },
-    imageContainer: {
-      marginBottom: 20,
+      marginTop:20,
     },
     inputContainer: {
       flexDirection: "row",
@@ -125,7 +170,6 @@ const userRegister = () => {
       borderColor: "gray",
       borderRadius: 5,
       paddingHorizontal: 10,
-      marginBottom: 20,
     },
     input: {
       flex: 1,
@@ -154,4 +198,4 @@ const userRegister = () => {
     },
   });
 
-export default userRegister
+export default UserRegister;
