@@ -2,22 +2,28 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const EmailLogin = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handlePasswordChange = (text) => {
+    console.log('text',text)
     setPassword(text);
   };
   const handleLogin = async () => {
-    await axios.post('http://localhost:4000/api/auth/loginuser', {
+    console.log(email,password)
+    await axios.post('http://192.168.1.10:3000/api/auth/loginuser', {
       email:email,
       password : password
     })
-    .then(function (response) {
+    .then(async function (response) {
       console.log(response);
       if(response.status === 200){
+        await AsyncStorage.setItem('authToken',response.data.authToken);
+        await AsyncStorage.setItem('user',JSON.stringify(response.data.user));
       navigation.navigate('BottomNavbar')
       }
     })
@@ -27,6 +33,8 @@ const EmailLogin = () => {
   }
 
   const handleEmailChange =(text)=>{
+    console.log('text',text)
+
     setEmail(text);
   }
   return (
@@ -52,7 +60,6 @@ const EmailLogin = () => {
             style={styles.input}
             placeholder="Enter your registered mail"
             keyboardType="email-address"
-            maxLength={10}
             value={email}
             onChangeText={handleEmailChange}
           />
@@ -63,14 +70,14 @@ const EmailLogin = () => {
             size={24}
             color="black"
             style={styles.icon}
-            value={password}
-        onChangeText={handlePasswordChange}
+           
           />
           <TextInput
             style={styles.input}
             placeholder="Enter your password"
             keyboardType="visible-password"
-            maxLength={10}
+            value={password}
+            onChangeText={handlePasswordChange}
           />
         </View>
 

@@ -17,7 +17,7 @@ import CrouselItem from "../components/crouselItem";
 import GroundCard from "../components/groundCard";
 import axios from "axios";
 
-const Home = () => {
+const ProductPage = () => {
   const [grounds, setGrounds] = useState([]);
   useEffect(() => {
     const fetchGrounds = async () => {
@@ -179,4 +179,4 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
 });
-export default Home;
+export default ProductPage;

@@ -1,42 +1,67 @@
-import React,{useState} from "react";
-import { StyleSheet, Text, View, Image, Button, TouchableOpacity, TextInput } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Button,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from '@react-navigation/native';
+// import {AsyncStorage} from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EmailLogin = () => {
   const navigation = useNavigation();
   const [userDetails, setUserDetails] = useState({
-    name:"",
+    name: "",
     email: "",
     password: "",
   });
   const handleChange = (value, fieldName) => {
     setUserDetails({ ...userDetails, [fieldName]: value });
   };
-  const onSubmit= async(e)=>{
-
+  const onSubmit = async (e) => {
     const payload = {
-      ...userDetails
-    }
-    console.log(payload)
-await axios.post('https://groundup-server.onrender.com/api/auth/signup',payload).then((res)=>{
-      console.log(res)
-      if(res.status == 200) navigation('registeration')
-    }).catch((err)=>{
-      console.log(err)
-    })
+      ...userDetails,
+    };
+    console.log(payload);
+   const response =  await axios
+      .post("http://192.168.1.10:3000/api/auth/signup", payload)
+
+      console.log('RESPONSE',response)
+      if(response.status === 200){
+            await AsyncStorage.setItem("authToken", response.data.authToken);
+            await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+            navigation.navigate("registeration");
+      }
+      else{
+        console.log('INTERNAL SERVER ERROR')
+      }
+      // .then((res) => {
+      //   console.log(res);
+      //   if (res.status == 200) {
+      //     AsyncStorage.setItem("authToken", response.data.authToken);
+      //     AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+      //     navigation.navigate("registeration");
+      //   }
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     setUserDetails({
       email: "",
       password: "",
     });
-    if(response.status === 200) navigate('/Dashboard')
-  }
+  };
   const handleSendOTP = () => {
-    navigation.navigate('otpScreen') 
-  }
+    navigation.navigate("otpScreen");
+  };
   const handleLogin = () => {
-    navigation.navigate('Login');
+    navigation.navigate("Login");
   };
 
   return (
@@ -44,7 +69,6 @@ await axios.post('https://groundup-server.onrender.com/api/auth/signup',payload)
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image source={require("../images/images/officialLogo2.png")} />
-          
         </View>
 
         <View style={styles.imageContainer}>
@@ -61,7 +85,7 @@ await axios.post('https://groundup-server.onrender.com/api/auth/signup',payload)
             style={styles.input}
             placeholder="Enter your name"
             keyboardType="email-address"
-            onChangeText={(value) => handleChange(value, 'name')}
+            onChangeText={(value) => handleChange(value, "name")}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -74,7 +98,7 @@ await axios.post('https://groundup-server.onrender.com/api/auth/signup',payload)
           <TextInput
             style={styles.input}
             placeholder="Enter your mail"
-            onChangeText={(value) => handleChange(value, 'email')}
+            onChangeText={(value) => handleChange(value, "email")}
             keyboardType="email-address"
           />
         </View>
@@ -88,23 +112,32 @@ await axios.post('https://groundup-server.onrender.com/api/auth/signup',payload)
           <TextInput
             style={styles.input}
             placeholder="Set your new password"
-            onChangeText={(value) => handleChange(value, 'password')}
+            onChangeText={(value) => handleChange(value, "password")}
             keyboardType="visible-password"
           />
         </View>
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={onSubmit} style={styles.sendOTPButton}>
-            <Text style={{ fontSize: 18, color: 'black', fontWeight:'bold' }}>Signup</Text>
+            <Text style={{ fontSize: 18, color: "black", fontWeight: "bold" }}>
+              Signup
+            </Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.createAccount}>
-        <Text style={{ fontSize: 15, fontWeight: 'bold'}}>Already have an account?</Text>
-        <TouchableOpacity onPress={handleLogin}>
-          <Text style={{ color: "#0085FF", fontSize: 15, fontWeight: 'bold' }}> Login</Text>
-        </TouchableOpacity>
-      </View>
+          <Text style={{ fontSize: 15, fontWeight: "bold" }}>
+            Already have an account?
+          </Text>
+          <TouchableOpacity onPress={handleLogin}>
+            <Text
+              style={{ color: "#0085FF", fontSize: 15, fontWeight: "bold" }}
+            >
+              {" "}
+              Login
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </>
   );
@@ -127,7 +160,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    width:250,
+    width: 250,
     borderColor: "gray",
     borderRadius: 5,
     paddingHorizontal: 10,
@@ -136,7 +169,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    width:250,
+    width: 250,
     borderColor: "gray",
     borderRadius: 5,
     paddingHorizontal: 10,
@@ -152,20 +185,20 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     borderRadius: 10,
-    overflow: 'hidden',
+    overflow: "hidden",
     width: 100,
     marginVertical: 8,
   },
   sendOTPButton: {
-    backgroundColor:'#FFC500',
+    backgroundColor: "#FFC500",
     height: 40,
     justifyContent: "center",
     alignItems: "center",
   },
   createAccount: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

@@ -7,7 +7,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-const GroundCard = () => {
+const GroundCard = ({groundDetails}) => {
+
+  const navigation = useNavigation()
+  function extractTimeFromDate(dateStr) {
+    const date = new Date(dateStr);
+    const hours = date.getUTCHours().toString().padStart(2, '0');
+    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
+  const {name, address, description, timeSlot, image} = groundDetails
   return (
    <>
      <View
@@ -29,7 +38,7 @@ const GroundCard = () => {
           >
             <View>
               <Image
-                source={require("../images/images/bg3.png")}
+                source={{ uri: image }}
                 style={{ height: "95%", width: 190, borderRadius: 10 }}
               ></Image>
             </View>
@@ -40,10 +49,11 @@ const GroundCard = () => {
               ]}
             >
               <Text style={[styles.headText, { color: "black" }]}>
-                Cricket Stadium
+                {name}
               </Text>
               <TouchableOpacity
                 style={[styles.button, { width: 170, marginTop: 10 }]}
+                 onPress={() => navigation.navigate('ProductPage', { itemId: 42, otherParam: 'anything you want here' })}
               >
                 <Text style={[styles.buttonText, { marginLeft: 55 }]}>
                   Book Now
@@ -59,27 +69,27 @@ const GroundCard = () => {
                 }}
               >
                 <View style={{ marginLeft: 10, marginRight: 10 }}>
-                  <Text style={{ fontWeight: "bold" }}>Rs3000</Text>
+                  <Text style={{ fontWeight: "bold" }}>{timeSlot[0].price}</Text>
                   <Text
                     style={{ color: "blue", fontSize: 10, textAlign: "center" }}
                   >
-                    3:00 PM
+                    {extractTimeFromDate(timeSlot[0].startTime)}
                   </Text>
                 </View>
                 <View style={{ marginLeft: 10, marginRight: 10 }}>
-                  <Text style={{ fontWeight: "bold" }}>Rs3000</Text>
+                  <Text style={{ fontWeight: "bold" }}>{timeSlot[1].price}</Text>
                   <Text
                     style={{ color: "blue", fontSize: 10, textAlign: "center" }}
                   >
-                    3:00 PM
+                    {extractTimeFromDate(timeSlot[1].startTime)}
                   </Text>
                 </View>
                 <View style={{ marginLeft: 10, marginRight: 10 }}>
-                  <Text style={{ fontWeight: "bold" }}>Rs3000</Text>
+                  <Text style={{ fontWeight: "bold" }}>{timeSlot[2].price}</Text>
                   <Text
                     style={{ color: "blue", fontSize: 10, textAlign: "center" }}
                   >
-                    3:00 PM
+                    {extractTimeFromDate(timeSlot[2].startTime)}
                   </Text>
                 </View>
               </View>
