@@ -114,6 +114,7 @@ const CartInfo = () => {
                           styles.button,
                           { width: "40%" },
                         ]}
+                        
                       >
                         <Text style={[styles.buttonText]}>View</Text>
                       </TouchableOpacity>
@@ -132,7 +133,7 @@ const CartInfo = () => {
             </View>
           ) : (
             <View>
-              <Text>FINISHED</Text>
+              <Text>No past Bookings</Text>
             </View>
           )}
         </View>

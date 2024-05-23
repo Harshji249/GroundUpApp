@@ -44,7 +44,6 @@ const CrouselItem = () => {
 const styles = StyleSheet.create({
     box: {
         height: 113,
-        width: "50%",
         overflow: "hidden",
         borderRadius: 10,
         marginLeft: 5,
@@ -80,6 +79,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignContent: "center",
         borderRadius: 5,
+        marginRight: 10,
       },
       buttonText: {
         color: "black",
