@@ -22,7 +22,7 @@ const Home = () => {
   useEffect(() => {
     const fetchGrounds = async () => {
       await axios
-        .get("http://192.168.1.10:3000/api/ground/fetchallgrounds")
+        .get("https://groundup-server.onrender.com/api/ground/fetchallgrounds")
         .then(function (response) {
           console.log(response);
           if (response?.status === 200) {

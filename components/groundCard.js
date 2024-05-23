@@ -10,12 +10,15 @@ import { useNavigation } from "@react-navigation/native";
 const GroundCard = ({groundDetails}) => {
 
   const navigation = useNavigation()
-  function extractTimeFromDate(dateStr) {
-    const date = new Date(dateStr);
-    const hours = date.getUTCHours().toString().padStart(2, '0');
-    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
-  }
+function extractTimeFromDate(dateStr) {
+  const date = new Date(dateStr);
+  let hours = date.getUTCHours();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = (hours % 12) || 12;
+  const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+  return `${hours}:${minutes} ${ampm}`;
+}
+
   const {name, address, description, timeSlot, image} = groundDetails
   return (
    <>
@@ -53,7 +56,7 @@ const GroundCard = ({groundDetails}) => {
               </Text>
               <TouchableOpacity
                 style={[styles.button, { width: 170, marginTop: 10 }]}
-                 onPress={() => navigation.navigate('ProductPage', { itemId: 42, otherParam: 'anything you want here' })}
+                 onPress={() => navigation.navigate('ProductPage', { groundDetails: groundDetails })}
               >
                 <Text style={[styles.buttonText, { marginLeft: 55 }]}>
                   Book Now

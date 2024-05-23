@@ -14,6 +14,7 @@ import SignupNumber from './components/signupNumber';
 import { BottomNavbar } from './navigation/BottomNavbar';
 import userRegister from './components/userRegister';
 import ProductPage from './components/productPage';
+import ConfirmationPage from './components/confirmationPage';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -77,6 +78,11 @@ export default function App() {
           <Stack.Screen
             name="ProductPage"
             component={ProductPage}
+            options={{ headerShown: false }}            
+          />
+          <Stack.Screen
+            name="ConfirmationPage"
+            component={ConfirmationPage}
             options={{ headerShown: false }}            
           />
           

@@ -30,7 +30,7 @@ const EmailLogin = () => {
     };
     console.log(payload);
    const response =  await axios
-      .post("http://192.168.1.10:3000/api/auth/signup", payload)
+      .post("https://groundup-server.onrender.com/api/auth/signup", payload)
 
       console.log('RESPONSE',response)
       if(response.status === 200){

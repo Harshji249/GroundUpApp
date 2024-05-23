@@ -54,7 +54,7 @@ const UserRegister = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.put(`http://192.168.1.10:3000/api/auth/registeruser/${user._id}`, formData);
+      const response = await axios.put(`https://groundup-server.onrender.com/api/auth/registeruser/${user._id}`, formData);
       console.log(response);
 
       if (response.status === 200) {

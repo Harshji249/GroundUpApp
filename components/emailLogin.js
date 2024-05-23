@@ -15,7 +15,7 @@ const EmailLogin = () => {
   };
   const handleLogin = async () => {
     console.log(email,password)
-    await axios.post('http://192.168.1.10:3000/api/auth/loginuser', {
+    await axios.post('https://groundup-server.onrender.com/api/auth/loginuser', {
       email:email,
       password : password
     })
