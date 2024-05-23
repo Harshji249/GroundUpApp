@@ -61,8 +61,9 @@ const Home = () => {
         <Text style={styles.text}>Popular Ground</Text>
         <ScrollView horizontal>
           <View style={styles.scrollbar}>
+            <CrouselItem  />
             <CrouselItem />
-            <CrouselItem />
+            
           </View>
         </ScrollView>
       </View>

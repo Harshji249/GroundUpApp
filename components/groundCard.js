@@ -42,7 +42,7 @@ function extractTimeFromDate(dateStr) {
             <View>
               <Image
                 source={{ uri: image }}
-                style={{ height: "95%", width: 190, borderRadius: 10 }}
+                style={{ height: "95%", width: 130, borderRadius: 10 , marginLeft: 15 }}
               ></Image>
             </View>
             <View
@@ -51,11 +51,11 @@ function extractTimeFromDate(dateStr) {
                 { flexDirection: "column", marginTop: 0 },
               ]}
             >
-              <Text style={[styles.headText, { color: "black" }]}>
+              <Text style={[styles.headText, { color: "black" , marginLeft: 40}]}>
                 {name}
               </Text>
               <TouchableOpacity
-                style={[styles.button, { width: 170, marginTop: 10 }]}
+                style={[styles.button, { width: 170, marginTop: 10 , marginLeft: 20 }]}
                  onPress={() => navigation.navigate('ProductPage', { groundDetails: groundDetails })}
               >
                 <Text style={[styles.buttonText, { marginLeft: 55 }]}>
